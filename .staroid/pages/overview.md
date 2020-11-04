@@ -10,8 +10,6 @@ Notable projects that is using BOINC or has support for BOINC are [LHC@Home](htt
 @[youtube](https://youtu.be/8iSRLIK-x6A)
 :::
 
-::::
-
 :::: section column
 ::: col 30%
 ## Fully managed BOINC Instances
@@ -28,4 +26,10 @@ Help advance science by giving away a portion of your cluster's resources to be 
 Each BOINC instance is backed by [Apache Guacamole](https://guacamole.apache.org/) with mandatory user and password setup to better secure your instance.
 
 :::
+::::
+
+:::: section
+# Running your own XYZ@Home Project?
+If you plan to host a scientific endeavour or provide a way for your audience to volunteer for something you're working on, the [BOINC Server](#) backed by Staroid might be for you (Coming soon).
+
 ::::
