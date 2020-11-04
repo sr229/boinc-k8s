@@ -1,0 +1,54 @@
+apiVersion: beta/v1
+build:
+  skaffold:
+    file: skaffold.yaml
+ingress:
+  - serviceName: boinc-client-svc
+    port: 8080
+deploy:
+  paramGroups:
+  - name: Configuration
+    collapsed: false
+    params:
+    - name: CPU
+      description: The amount of vCPUs to assign to your BOINC Instance.
+      type: STRING
+      defaultValue: "2"
+      optional: false
+      paths:
+      - Deployment:boinc-client:spec.template.spec.containers[0].limits.cpu
+
+    - name: Memory
+      description: The amount of Memory to assign to your BOINC Instance.
+      type: STRING
+      defaultValue: "2048Mi"
+      optional: false
+      paths:
+      - Deployment:boinc-client:spec.template.spec.containers[0].limits.memory
+
+    - name: Username
+      description: The username to access the BOINC GUI.
+      type: STRING
+      defaultValue: "staroid"
+      optional: false
+      paths:
+      - Deployment:boinc-client:spec.template.spec.containers[0].env[2].value 
+
+    - name: Password
+      description: The password to access the BOINC GUI. Your Password must be the MD5 hash of the intended passphrase. 
+      type: STRING
+      defaultValue: "8fa5484c8601fc6440bc77c6adacb35d"
+      optional: false
+      paths:
+      - Deployment:boinc-client:spec.template.spec.containers[0].env[3].value 
+
+    - name: Disk Size
+      description: The size of the persistent disk to mount on the IDE. Valid values ar 1024Mi or 1Gi.
+      type: STRING
+      defaultValue: "30Gi"
+      optional: false
+      paths:
+      - PersistentVolumeClaim:boinc-client-pvc:spec.resources.requests.storage
+
+starRank:
+  rate: 1.5

@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boinc-client
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+        app: boinc-client
+  template:
+    metadata:
+      labels:
+        app: boinc-client
+    spec:
+      containers:
+          - name: boinc-client
+            image: ghcr.io/linuxserver/boinc
+            resources:
+              requests:
+                 cpu: 100m
+                 memory: 512Mi
+              limits:
+                 cpu: 2
+                 memory: 2048Mi
+            volumeMounts:
+              - name: boinc-client-pvc
+                mountPath: /config
+            env:
+              - name: PUID
+                value: "1000"
+
+              - name: PGID
+                value: "1000"
+
+              - name: TZ
+                value: "Asia/Tokyo"
+              
+              - name: GUAC_USER
+                value: "ayane"
+              
+              - name: GUAC_PASS
+                value: "645cb31832dc3ccb45d72859f774a23d"
+      volumes:
+          - name: boinc-client-pvc
+            persistentVolumeClaim:
+               claimName: boinc-client-pvc
+--- 
+apiVersion: v1 
+kind: Service
+metadata:
+  name: boinc-client-svc
+spec:
+  ports:
+    - name: http
+      port: 8080
+  selector:
+    app: boinc-client
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: boinc-client-pvc
+spec:
+  # You can change it to whatever storage class you prefer but for now
+  # We're using Rancher's Longhorn.
+  storageClassName: longhorn
+  accessModes: 
+    - ReadWriteOnce
+  resources:
+     requests: 
+        storage: 30Gi
+---
+# We're assuming our user is using Traefik here, but we may want to make this into a helm chart instead 
+# if we're ever going to publish this to the marketplace at Civo.
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: boinc-client-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: www.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: boinc-client-svc
+          servicePort: http
