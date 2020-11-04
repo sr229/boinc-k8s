@@ -10,7 +10,7 @@ Notable projects that is using BOINC or has support for BOINC are [LHC@Home](htt
 @[youtube](https://youtu.be/8iSRLIK-x6A)
 :::
 
-:::
+::::
 
 :::: section column
 ::: col 30%
@@ -28,11 +28,4 @@ Help advance science by giving away a portion of your cluster's resources to be 
 Each BOINC instance is backed by [Apache Guacamole](https://guacamole.apache.org/) with mandatory user and password setup to better secure your instance.
 
 :::
-::::
-
-:::: section
-# I've installed it, what now?
-
-Log in to your BOINC Instance and join the available [BOINC projects](https://boinc.berkeley.edu/projects.php)! 
-
 ::::
