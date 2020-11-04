@@ -12,19 +12,27 @@ deploy:
     params:
     - name: CPU
       description: The amount of vCPUs to assign to your BOINC Instance.
-      type: STRING
+      type: CPU
       defaultValue: "2"
       optional: false
       paths:
-      - Deployment:boinc-client:spec.template.spec.containers[0].limits.cpu
+      - Deployment:boinc-client:spec.template.spec.containers[0].resources.limits.cpu
 
     - name: Memory
       description: The amount of Memory to assign to your BOINC Instance.
-      type: STRING
+      type: MEMORY
       defaultValue: "2048Mi"
       optional: false
       paths:
-      - Deployment:boinc-client:spec.template.spec.containers[0].limits.memory
+      - Deployment:boinc-client:spec.template.spec.containers[0].resources.limits.memory
+
+    - name: Timezone
+      description: The Timezone to set the container's time to. Must be a valid POSIX Timezone.
+      type: STRING
+      defaultValue: "Asia/Tokyo"
+      optional: false
+      paths:
+      - Deployment:boinc-client:spec.template.spec.containers[0].env[2].value 
 
     - name: Username
       description: The username to access the BOINC GUI.
@@ -32,7 +40,7 @@ deploy:
       defaultValue: "staroid"
       optional: false
       paths:
-      - Deployment:boinc-client:spec.template.spec.containers[0].env[2].value 
+      - Deployment:boinc-client:spec.template.spec.containers[0].env[3].value 
 
     - name: Password
       description: The password to access the BOINC GUI. Your Password must be the MD5 hash of the intended passphrase. 
@@ -40,7 +48,7 @@ deploy:
       defaultValue: "8fa5484c8601fc6440bc77c6adacb35d"
       optional: false
       paths:
-      - Deployment:boinc-client:spec.template.spec.containers[0].env[3].value 
+      - Deployment:boinc-client:spec.template.spec.containers[0].env[4].value 
 
     - name: Disk Size
       description: The size of the persistent disk to mount on the IDE. Valid values ar 1024Mi or 1Gi.
