@@ -1,4 +1,4 @@
-::: section
+::: section column
 
 ::: col 60%
 The Berkely Open Infrastrucutre for Networked Computing (BOINC) is a open source middleware computing software for [Volunteer Computing](https://en.wikipedia.org/wiki/Volunteer_computing).
@@ -9,11 +9,10 @@ Notable projects that is using BOINC or has support for BOINC are [LHC@Home](htt
 ::: col 30%
 @[youtube](https://youtu.be/8iSRLIK-x6A)
 :::
-::::
+
+:::
 
 :::: section column
-# Benefits
-
 ::: col 30%
 ## Fully managed BOINC Instances
 No need to set up a complicated configuration for BOINC - just run this on your Staroid Kubernetes Cluster and Go!
